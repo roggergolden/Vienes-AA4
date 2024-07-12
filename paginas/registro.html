@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | Agencia Inmobiliaria</title>
+    <link rel="stylesheet" href="../style/registro.css">
+    <!-- Incluye Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script>
+      // Tu configuración de Firebase
+      // Your web app's Firebase configuration
+            const firebaseConfig = {
+            apiKey: "AIzaSyDqbufcbv5LZuPpyVciWLBIUGpQyt_LNEY",
+            authDomain: "vienes-prueba.firebaseapp.com",
+            databaseURL: "https://vienes-prueba-default-rtdb.firebaseio.com",
+            projectId: "vienes-prueba",
+            storageBucket: "vienes-prueba.appspot.com",
+            messagingSenderId: "148968218617",
+            appId: "1:148968218617:web:c99146c87f1b6d69d1a728"
+            };
+
+      // Inicializa Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+
+      // Configurar emuladores locales
+      if (location.hostname === "localhost") {
+        auth.useEmulator("http://localhost:9099/");
+        db.useEmulator("localhost", 8080);
+      }
+    </script>
+</head>
+<body>
+    <!-- Formulario de Registro -->
+    <div id="registerForm">
+      <h2>Registro</h2>
+      <form id="register">
+        <input type="text" id="registerName" placeholder="Nombre" required>
+        <input type="text" id="registerLastName" placeholder="Apellidos" required>
+        <input type="text" id="registerAddress" placeholder="Dirección" required>
+        <input type="tel" id="registerPhone" placeholder="Celular" required>
+        <input type="email" id="registerEmail" placeholder="Correo Electrónico" required>
+        <input type="password" id="registerPassword" placeholder="Contraseña" required>
+        <button type="submit">Registrarse</button>
+      </form>
+      <p id="registerError" style="color: red;"></p>
+    </div>
+
+    <script>
+      // Manejar el registro
+      document.getElementById('register').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('registerName').value;
+        const lastName = document.getElementById('registerLastName').value;
+        const address = document.getElementById('registerAddress').value;
+        const phone = document.getElementById('registerPhone').value;
+        const email = document.getElementById('registerEmail').value;
+        const password = document.getElementById('registerPassword').value;
+
+        auth.createUserWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            // Guardar información adicional del usuario en Firestore
+            const user = userCredential.user;
+            return db.collection('users').doc(user.uid).set({
+              uid: user.uid,
+              name: name,
+              lastName: lastName,
+              address: address,
+              phone: phone,
+              email: email
+            }).then(() => {
+              // Redirigir a la página de inicio de sesión
+              window.location.href = 'login.html';
+            });
+          })
+          .catch((error) => {
+            document.getElementById('registerError').textContent = error.message;
+          });
+      });
+    </script>
+</body>
+</html>

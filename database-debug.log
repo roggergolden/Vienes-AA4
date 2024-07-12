@@ -1,0 +1,9 @@
+15:14:16.362 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+15:14:16.587 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+15:14:19.242 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - vienes-prueba-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 141ms, init: 0ms
+15:14:19.322 [NamespaceSystem-blocking-namespace-operation-dispatcher-6] INFO com.firebase.core.namespace.StateManager - Namespace vienes-prueba-default-rtdb status Active to Active
+15:14:26.435 [FirebaseWorkerPool-1-3] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
+namespace vienes-prueba, but the emulator is configured for vienes-prueba-default-rtdb. To 
+opt-out of single project mode add/set the singleProjectMode: false property in 
+the firebase.json emulators config. 
+15:14:26.449 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - vienes-prueba successfully activated FBKV (SurveyIdle(0)) wait: 4ms, init: 0ms

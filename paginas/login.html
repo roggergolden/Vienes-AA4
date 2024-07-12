@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión | Agencia Inmobiliaria</title>
+    <link rel="stylesheet" href="./style/estilos.css">
+    <!-- Incluye Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script>
+      // Tu configuración de Firebase
+      const firebaseConfig = {
+            apiKey: "AIzaSyDqbufcbv5LZuPpyVciWLBIUGpQyt_LNEY",
+            authDomain: "vienes-prueba.firebaseapp.com",
+            databaseURL: "https://vienes-prueba-default-rtdb.firebaseio.com",
+            projectId: "vienes-prueba",
+            storageBucket: "vienes-prueba.appspot.com",
+            messagingSenderId: "148968218617",
+            appId: "1:148968218617:web:c99146c87f1b6d69d1a728"
+            };
+
+
+      // Inicializa Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+    </script>
+</head>
+<body>
+    <!-- Formulario de Inicio de Sesión -->
+    <div id="loginForm">
+      <h2>Iniciar Sesión</h2>
+      <form id="login">
+        <input type="email" id="loginEmail" placeholder="Correo Electrónico" required>
+        <input type="password" id="loginPassword" placeholder="Contraseña" required>
+        <button type="submit">Iniciar Sesión</button>
+      </form>
+      <p id="loginError" style="color: red;"></p>
+    </div>
+
+    <script>
+      // Manejar el inicio de sesión
+      document.getElementById('login').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        auth.signInWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            window.location.href = 'perfil.html'; // Redirigir al perfil del usuario después de iniciar sesión
+          })
+          .catch((error) => {
+            document.getElementById('loginError').textContent = error.message;
+          });
+      });
+    </script>
+</body>
+</html>
